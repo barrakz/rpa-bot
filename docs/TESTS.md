@@ -51,6 +51,13 @@ Po każdym uruchomieniu `robot` generowane są pliki w `artifacts/logs/`:
 - `report.html` – podsumowanie wyników testów (PASS/FAIL, statystyki).
 - `output.xml` – surowe dane przebiegu testów (do integracji/analizy).
 
+### Zalecany tryb: logi z timestampem
+
+Skrypt `scripts/run_tests.sh` zapisuje logi w podfolderze z timestampem, np.:
+`artifacts/logs/2026-02-04_14-30-05/`
+
+Dzięki temu logi nie są nadpisywane między uruchomieniami.
+
 ### Jak czytać `log.html`
 1. Otwórz `artifacts/logs/log.html` w przeglądarce.
 2. Po lewej wybierz suite/test.

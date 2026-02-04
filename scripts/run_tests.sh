@@ -10,7 +10,11 @@ else
   exit 1
 fi
 
-robot --outputdir artifacts/logs \
+ts="$(date +"%Y-%m-%d_%H-%M-%S")"
+outdir="artifacts/logs/${ts}"
+mkdir -p "${outdir}"
+
+robot --outputdir "${outdir}" \
   --log log.html \
   --report report.html \
   --output output.xml \
