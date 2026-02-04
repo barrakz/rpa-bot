@@ -42,3 +42,16 @@ robot --outputdir artifacts/logs tests/open_wp.robot
 ```bash
 sudo safaridriver --enable
 ```
+
+## Logi i raporty (Robot Framework)
+
+Po każdym uruchomieniu `robot` generowane są pliki w `artifacts/logs/`:
+
+- `log.html` – szczegółowy log krok po kroku (najlepszy do debugowania).
+- `report.html` – podsumowanie wyników testów (PASS/FAIL, statystyki).
+- `output.xml` – surowe dane przebiegu testów (do integracji/analizy).
+
+### Jak czytać `log.html`
+1. Otwórz `artifacts/logs/log.html` w przeglądarce.
+2. Po lewej wybierz suite/test.
+3. Po prawej zobaczysz listę kroków (keywordów), czasy i ewentualne błędy.

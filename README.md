@@ -45,6 +45,18 @@ Uwaga: Selenium nie może wpisywać adresu w pasek URL przeglądarki (chrome UI)
 - `artifacts/logs/` – `log.html`, `report.html`, `output.xml` oraz `smoke_ok.txt`
 - `artifacts/screenshots/` – miejsce na screenshoty (na razie puste)
 
+## Sekrety i loginy (lokalnie)
+
+W czasie prac na macOS przechowuj dane dostępowe lokalnie w:
+`/.local/.env` (plik poza repo). Przykładowy format znajdziesz w `.env.example`.
+
+```env
+SELLASIST_USER=twoj_login
+SELLASIST_PASS=twoje_haslo
+```
+
+Plik `.local/.env` jest ignorowany przez git.
+
 ## Dodawanie testów i keywordów
 
 - Nowe testy dodawaj w `tests/` jako pliki `.robot`.
