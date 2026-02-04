@@ -18,6 +18,28 @@ pip install -r requirements.txt
 robot --outputdir artifacts/logs tests
 ```
 
+## Safari (macOS)
+
+Safari używa wbudowanego `safaridriver` (bez Homebrew).
+
+1) Włącz zdalną automatyzację:
+- Safari → Preferences → Advanced → „Show Develop menu in menu bar”.
+- Develop → „Allow Remote Automation”.
+
+2) Jednorazowo aktywuj `safaridriver`:
+
+```bash
+sudo safaridriver --enable
+```
+
+3) Uruchom test przykładowy:
+
+```bash
+robot --outputdir artifacts/logs tests/open_wp.robot
+```
+
+Uwaga: Selenium nie może wpisywać adresu w pasek URL przeglądarki (chrome UI). Zamiast tego używamy `Go To`, które programowo nawiguję do adresu.
+
 ## Logi i artefakty
 
 - `artifacts/logs/` – `log.html`, `report.html`, `output.xml` oraz `smoke_ok.txt`
