@@ -14,6 +14,12 @@
   - Cel: otwarcie strony logowania SellAsist bez wpisywania danych.
   - Asercja: obecność pola hasła i poprawny URL.
 
+## Workflow
+
+- `process/open_sellasist.robot`
+  - Cel: krok workflow otwierający stronę logowania SellAsist (bez danych).
+  - Używany jako pierwszy krok procesu, testowany jednostkowo przez `tests/sellasist_login_page.robot`.
+
 ## Uruchamianie
 
 - Wszystkie testy:

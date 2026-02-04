@@ -7,6 +7,7 @@ Projekt oparty o Robot Framework z wydzielonymi keywordami i konfiguracją. Test
 ## Struktura kodu
 
 - `tests/` – scenariusze testowe `.robot`.
+- `process/` – kroki workflow (scenariusze procesu, składane w całość).
 - `src/keywords/` – własne keywordy reużywalne w testach.
 - `config/` – zmienne i konfiguracja środowiska.
 - `artifacts/` – logi i pliki generowane podczas uruchomień.

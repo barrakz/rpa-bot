@@ -6,6 +6,7 @@
 - Test smoke zapisujący marker `smoke_ok.txt` do `artifacts/logs/`.
 - Test web (Safari): otwarcie przeglądarki i nawigacja do `https://www.wp.pl`.
 - Test web (Safari): otwarcie strony logowania SellAsist (bez wpisywania danych).
+- Workflow: krok `open_sellasist` (otwarcie strony logowania).
 
 ## Środowisko
 
