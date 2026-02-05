@@ -7,3 +7,9 @@
 - Dodano dokumentację uruchamiania Safari i strukturę `docs/`.
 - Dodano test strony logowania SellAsist bez wpisywania danych.
 - Dodano pierwszy krok workflow: `process/open_sellasist.robot`.
+
+## 2026-02-05
+
+- Dodano tryb wielo-środowiskowy (macOS/Windows) z automatycznym doborem przeglądarki.
+- Dodano skrypty uruchomieniowe: `scripts/run_mac.sh` i `scripts/run_win.bat`.
+- Dodano generator paczki Windows (bundle) i przygotowany bundle `bundle/windows/1.0`.

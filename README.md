@@ -18,6 +18,24 @@ pip install -r requirements.txt
 robot --outputdir artifacts/logs tests
 ```
 
+## Workflow demo (macOS)
+
+```bash
+scripts/run_mac.sh
+```
+
+## Wybór środowiska i przeglądarki
+
+Domyślnie dobór przeglądarki jest automatyczny:
+- macOS → `safari`
+- Windows → `chrome`
+
+Możesz wymusić:
+
+```bash
+RPA_ENV=mac BROWSER=safari robot --outputdir artifacts/logs process/open_sellasist.robot
+```
+
 ## Safari (macOS)
 
 Safari używa wbudowanego `safaridriver` (bez Homebrew).
@@ -65,3 +83,11 @@ Plik `.local/.env` jest ignorowany przez git.
 ## Uwaga o docelowym środowisku
 
 Na tym etapie projekt jest przygotowany pod lokalne uruchomienia na macOS. Docelowo bot będzie uruchamiany na Windows z GUI.
+
+## Bundle Windows (demo)
+
+Gotowy bundle do uruchomienia bez instalacji repo:
+- `bundle/windows/1.0/`
+- `bundle/windows/rpa-bot-windows-1.0.zip`
+
+Uruchom `run.bat`, aby otworzyć Chrome i stronę logowania SellAsist.
