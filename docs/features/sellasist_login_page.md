@@ -5,7 +5,7 @@ Test otwiera stronę logowania SellAsist i weryfikuje, że formularz logowania j
 
 ## Wejścia / konfiguracja
 - `SELLASIST_URL` w `config/variables.robot`
-- `BROWSER` ustawiony na `safari`
+- `BROWSER` ustawiany automatycznie (lub ręcznie przez `BROWSER`/`RPA_ENV`)
 
 ## Zachowanie
 - Otwiera przeglądarkę na `about:blank`.

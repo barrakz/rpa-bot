@@ -11,3 +11,5 @@ artifacts/*
 .local/
 
 .env
+
+bundle/

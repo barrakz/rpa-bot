@@ -42,6 +42,43 @@ Uruchomienie kroku workflow:
 robot --outputdir artifacts/logs process/open_sellasist.robot
 ```
 
+## Tryb wielo-środowiskowy (macOS/Windows)
+
+Dobór przeglądarki jest automatyczny i zależny od:
+1) jawnie podanego `BROWSER`,
+2) zmiennej `BROWSER` w środowisku,
+3) zmiennej `RPA_ENV` (mac/win),
+4) wykrytego systemu.
+
+Domyślne mapowanie:
+- macOS → `safari`
+- Windows → `chrome`
+
+## Skrypty uruchomieniowe
+
+- macOS (workflow demo):
+```bash
+scripts/run_mac.sh
+```
+
+- Windows (lokalny dev):
+```bat
+scripts\run_win.bat
+```
+
+## Bundle Windows (dla nietechnicznej osoby)
+
+Gotowa paczka jest w:
+- `bundle/windows/1.0/`
+- `bundle/windows/rpa-bot-windows-1.0.zip`
+
+Wystarczy uruchomić `run.bat` — powinien się otworzyć Chrome i strona logowania SellAsist.
+
+Generator paczki:
+```bash
+scripts/build_windows_bundle.sh 1.0
+```
+
 ## Sekrety i loginy (lokalnie)
 
 Na macOS przechowuj dane dostępowe w pliku lokalnym:

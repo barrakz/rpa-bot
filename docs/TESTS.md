@@ -34,6 +34,38 @@ robot --outputdir artifacts/logs tests
 robot --outputdir artifacts/logs tests/open_wp.robot
 ```
 
+## Skrypty uruchomieniowe
+
+- Workflow demo na macOS:
+
+```bash
+scripts/run_mac.sh
+```
+
+- Lokalny run na Windows (developer):
+
+```bat
+scripts\\run_win.bat
+```
+
+## Wybór przeglądarki i środowiska
+
+Sterowanie odbywa się przez zmienne środowiskowe:
+- `RPA_ENV` = `mac` | `win`
+- `BROWSER` = `safari` | `chrome` | `firefox` | ...
+
+Przykład (macOS):
+```bash
+RPA_ENV=mac BROWSER=safari robot --outputdir artifacts/logs process/open_sellasist.robot
+```
+
+Przykład (Windows):
+```bat
+set RPA_ENV=win
+set BROWSER=chrome
+robot --outputdir artifacts\\logs process\\open_sellasist.robot
+```
+
 ## Wymagania Safari
 
 - Safari → Develop → Allow Remote Automation

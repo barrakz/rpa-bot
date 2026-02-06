@@ -3,6 +3,7 @@
 ## Przegląd
 
 Projekt oparty o Robot Framework z wydzielonymi keywordami i konfiguracją. Testy są uruchamiane lokalnie na macOS.
+Docelowe środowisko wykonawcze to Windows z Chrome, przy zachowaniu wspólnej bazy kodu.
 
 ## Struktura kodu
 
@@ -11,12 +12,20 @@ Projekt oparty o Robot Framework z wydzielonymi keywordami i konfiguracją. Test
 - `src/keywords/` – własne keywordy reużywalne w testach.
 - `config/` – zmienne i konfiguracja środowiska.
 - `artifacts/` – logi i pliki generowane podczas uruchomień.
+- `bundle/` – paczki uruchomieniowe (Windows) dla użytkowników nietechnicznych.
 
 ## Zależności
 
 - `robotframework`
 - `robotframework-seleniumlibrary`
 - `python-dotenv` (opcjonalnie, na przyszłość)
+
+## Dobór środowiska
+
+Skrypt i keyword `Open Browser To Blank` wybierają przeglądarkę na podstawie:
+- `BROWSER` (jawny wybór),
+- `RPA_ENV` (mac/win),
+- wykrytego systemu.
 
 ## Planowane (przyszłość): baza danych procesowych
 
