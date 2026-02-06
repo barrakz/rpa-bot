@@ -5,8 +5,8 @@
 - Uruchamianie testów Robot Framework lokalnie na macOS.
 - Test smoke zapisujący marker `smoke_ok.txt` do `artifacts/logs/`.
 - Test web (Safari): otwarcie przeglądarki i nawigacja do `https://www.wp.pl`.
-- Test web (Safari): otwarcie strony logowania SellAsist (bez wpisywania danych).
-- Workflow: krok `open_sellasist` (otwarcie strony logowania).
+- Test web (Safari): otwarcie strony logowania SellAsist i wysłanie formularza logowania danymi testowymi.
+- Workflow: krok `open_sellasist` (otwarcie strony logowania + testowe logowanie).
 - Tryb wielo-środowiskowy (macOS/Windows) z automatycznym doborem przeglądarki.
 - Bundle Windows v1.0 (Chrome) do demonstracji „otwórz login SellAsist”.
 
@@ -25,6 +25,5 @@
 ## Następne kroki (propozycje)
 
 - Ustalić standard asercji dla stron (mniej kruche niż pełny tytuł).
-- Rozszerzyć testy o proste interakcje na stronie (kliknięcie, sprawdzenie elementu).
 - Dodać bazowy model logowania/test tags.
 - Dodać lokalną bazę procesową (np. SQLite) na komputerze docelowym do zapisu przebiegu, błędów i kroków.

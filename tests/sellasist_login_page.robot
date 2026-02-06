@@ -2,6 +2,7 @@
 Library      SeleniumLibrary
 Resource     ../config/variables.robot
 Resource     ../src/keywords/common.robot
+Resource     ../src/keywords/sellasist.robot
 
 Suite Setup     Open Browser To Blank
 Suite Teardown  Close All Browsers
@@ -9,9 +10,8 @@ Test Setup      Log To Console    [SELLASIST] Start test
 Test Teardown   Log To Console    [SELLASIST] End test
 
 *** Test Cases ***
-Open SellAsist Login Page (No Credentials)
+Open SellAsist Login Page (Test Login)
     Log To Console    [SELLASIST] Navigating to login page
-    Go To    ${SELLASIST_URL}
-    Location Should Contain    ggautolublin.sellasist.pl
-    Wait Until Page Contains Element    css:input[type="password"]    10s
-    Log To Console    [SELLASIST] Login page loaded (no credentials entered)
+    Open SellAsist Login Page
+    Login To SellAsist
+    Log To Console    [SELLASIST] Login submitted with test credentials
