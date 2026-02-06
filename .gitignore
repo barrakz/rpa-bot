@@ -13,3 +13,4 @@ artifacts/*
 .env
 
 bundle/
+docs/notatki/
