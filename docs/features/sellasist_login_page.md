@@ -1,7 +1,7 @@
 # Strona logowania SellAsist (testowe logowanie)
 
 ## Opis
-Test otwiera stronę logowania SellAsist i weryfikuje, że formularz logowania jest widoczny. Następnie wpisuje testowy login i hasło oraz klika „Zaloguj się”.
+Test otwiera stronę logowania SellAsist i weryfikuje, że formularz logowania jest widoczny. Następnie wpisuje testowy login i hasło, ale nie wysyła formularza.
 
 ## Wejścia / konfiguracja
 - `SELLASIST_URL` w `config/variables.robot`
@@ -17,7 +17,7 @@ Test otwiera stronę logowania SellAsist i weryfikuje, że formularz logowania j
 - Sprawdza, czy URL zawiera domenę SellAsist.
 - Sprawdza, czy na stronie istnieje pole loginu i hasła.
 - Wpisuje testowe dane logowania.
-- Klika „Zaloguj się”.
+- Nie klika „Zaloguj się” (brak submitu).
 
 ## Artefakty
 - Logi w `artifacts/logs/`.

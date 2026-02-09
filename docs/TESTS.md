@@ -11,13 +11,17 @@
   - Asercja: tytuł strony.
 
 - `tests/sellasist_login_page.robot`
-  - Cel: otwarcie strony logowania SellAsist i próba logowania danymi testowymi.
-  - Asercja: obecność pól login/hasło, poprawny URL oraz wysłanie formularza.
+  - Cel: otwarcie strony logowania SellAsist i wpisanie danych testowych bez wysyłania formularza.
+  - Asercja: obecność pól login/hasło, poprawny URL oraz wypełnienie pól.
+
+- `tests/desktop_stub.robot`
+  - Cel: macOS stub — otwarcie folderu `~/Desktop/NOTEPAD` w Finderze.
+  - Asercja: folder istnieje; test pomija się automatycznie poza macOS.
 
 ## Workflow
 
 - `process/open_sellasist.robot`
-  - Cel: krok workflow otwierający stronę logowania SellAsist i wykonujący testowe logowanie.
+  - Cel: krok workflow otwierający stronę logowania SellAsist i wypełniający formularz logowania bez submitu.
   - Używany jako pierwszy krok procesu, testowany jednostkowo przez `tests/sellasist_login_page.robot`.
 
 ## Uruchamianie

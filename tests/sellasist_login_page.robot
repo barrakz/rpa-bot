@@ -14,4 +14,4 @@ Open SellAsist Login Page (Test Login)
     Log To Console    [SELLASIST] Navigating to login page
     Open SellAsist Login Page
     Login To SellAsist
-    Log To Console    [SELLASIST] Login submitted with test credentials
+    Log To Console    [SELLASIST] Test credentials filled (no submit)
