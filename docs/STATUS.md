@@ -6,7 +6,8 @@
 - Test smoke zapisujący marker `smoke_ok.txt` do `artifacts/logs/`.
 - Test web (Safari): otwarcie przeglądarki i nawigacja do `https://www.wp.pl`.
 - Test web (Safari): otwarcie strony logowania SellAsist i wysłanie formularza logowania danymi testowymi.
-- Workflow: krok `open_sellasist` (otwarcie strony logowania + testowe logowanie).
+- Workflow: krok `open_sellasist` (otwarcie strony logowania + wypełnienie formularza bez submitu).
+- Desktop stub (macOS): otwarcie folderu `~/Desktop/NOTEPAD` po logowaniu.
 - Tryb wielo-środowiskowy (macOS/Windows) z automatycznym doborem przeglądarki.
 - Bundle Windows v1.0 (Chrome) do demonstracji „otwórz login SellAsist”.
 

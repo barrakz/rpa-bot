@@ -17,4 +17,3 @@ Login To SellAsist
     Input Text    ${SELLASIST_PASSWORD_INPUT}    ${password}
     Element Attribute Value Should Be    ${SELLASIST_LOGIN_INPUT}    value    ${user}
     Wait Until Page Contains Element    ${SELLASIST_LOGIN_BUTTON}    10s
-    Click Element    ${SELLASIST_LOGIN_BUTTON}

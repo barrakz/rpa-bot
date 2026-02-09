@@ -20,3 +20,6 @@
 - Zaktualizowano test oraz krok workflow o wpisywanie litery w login.
 - Zaktualizowano dokumentację funkcjonalności i testów.
 - Dodano testowe logowanie do SellAsist (login/hasło + kliknięcie „Zaloguj się”).
+- Dodano desktopowy stub otwierający `~/Desktop/NOTEPAD` po logowaniu (macOS).
+- Dodano test `tests/desktop_stub.robot` dla stubu desktopowego.
+- Zmieniono logowanie SellAsist: po wpisaniu danych nie klikamy „Zaloguj się”.
