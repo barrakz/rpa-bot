@@ -23,3 +23,9 @@
 - Dodano desktopowy stub otwierający `~/Desktop/NOTEPAD` po logowaniu (macOS).
 - Dodano test `tests/desktop_stub.robot` dla stubu desktopowego.
 - Zmieniono logowanie SellAsist: po wpisaniu danych nie klikamy „Zaloguj się”.
+
+## 2026-02-09
+
+- Desktop stub działa też na Windows: otwieranie `Desktop\\NOTEPAD` przez `explorer.exe` (tworzy folder, jeśli nie istnieje).
+- Login SellAsist może brać dane z `SELLASIST_USER`/`SELLASIST_PASS` (env override).
+- Skrypty Windows (`scripts/run_win.bat` i bundle `run.bat`) zapisują logi do `artifacts\\logs\\<timestamp>` i przyjmują opcjonalnie `user/pass` jako argumenty.
