@@ -89,5 +89,11 @@ Na tym etapie projekt jest przygotowany pod lokalne uruchomienia na macOS. Docel
 Gotowy bundle do uruchomienia bez instalacji repo:
 - `bundle/windows/1.0/`
 - `bundle/windows/rpa-bot-windows-1.0.zip`
+- `bundle/windows/1.1/`
+- `bundle/windows/rpa-bot-windows-1.1.zip`
 
 Uruchom `run.bat`, aby otworzyć Chrome i stronę logowania SellAsist.
+
+Bundle `1.1` dodatkowo:
+- pozwala podać login/hasło jako argumenty: `run.bat "user" "pass"` (lub env `SELLASIST_USER`/`SELLASIST_PASS`)
+- otwiera folder `NOTEPAD` na pulpicie (Windows/macOS stub)

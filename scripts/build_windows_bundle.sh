@@ -69,6 +69,10 @@ set "PYTHON=%ROOT%python\python.exe"
 set "RPA_ENV=win"
 set "BROWSER=chrome"
 
+rem Optional args: run.bat <user> <pass>
+if not "%~1"=="" set "SELLASIST_USER=%~1"
+if not "%~2"=="" set "SELLASIST_PASS=%~2"
+
 if not exist "%PYTHON%" (
   echo [ERROR] Brak Python embed w paczce.
   pause
@@ -76,16 +80,18 @@ if not exist "%PYTHON%" (
 )
 
 cd /d "%APP%"
-if not exist "artifacts\logs" mkdir "artifacts\logs"
+for /f %%i in ('powershell -NoProfile -Command "Get-Date -Format yyyy-MM-dd_HH-mm-ss"') do set "TS=%%i"
+set "OUTDIR=artifacts\logs\%TS%"
+if not exist "%OUTDIR%" mkdir "%OUTDIR%"
 
-"%PYTHON%" -m robot --outputdir "artifacts\logs" ^
+"%PYTHON%" -m robot --outputdir "%OUTDIR%" ^
   --log log.html ^
   --report report.html ^
   --output output.xml ^
   process\open_sellasist.robot
 
 echo.
-echo [OK] Logi: %APP%\artifacts\logs\log.html
+echo [OK] Logi: %APP%\%OUTDIR%\log.html
 pause
 endlocal
 EOF

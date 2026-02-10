@@ -7,13 +7,18 @@ set "ROOT=%ROOT%\"
 set "RPA_ENV=win"
 set "BROWSER=chrome"
 
+rem Optional args: run_win.bat <user> <pass>
+if not "%~1"=="" set "SELLASIST_USER=%~1"
+if not "%~2"=="" set "SELLASIST_PASS=%~2"
+
 set "PYTHON=%ROOT%venv\Scripts\python.exe"
 if not exist "%PYTHON%" (
   set "PYTHON=python"
   echo [INFO] Nie znaleziono venv. Uzywam Pythona z PATH.
 )
 
-set "OUTDIR=%ROOT%artifacts\logs"
+for /f %%i in ('powershell -NoProfile -Command "Get-Date -Format yyyy-MM-dd_HH-mm-ss"') do set "TS=%%i"
+set "OUTDIR=%ROOT%artifacts\logs\%TS%"
 if not exist "%OUTDIR%" mkdir "%OUTDIR%"
 
 "%PYTHON%" -m robot --outputdir "%OUTDIR%" ^

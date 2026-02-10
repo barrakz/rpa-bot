@@ -15,8 +15,9 @@
   - Asercja: obecność pól login/hasło, poprawny URL oraz wypełnienie pól.
 
 - `tests/desktop_stub.robot`
-  - Cel: macOS stub — otwarcie folderu `~/Desktop/NOTEPAD` w Finderze.
-  - Asercja: folder istnieje; test pomija się automatycznie poza macOS.
+  - Cel: desktop stub — otwarcie folderu `NOTEPAD` na pulpicie.
+  - Zachowanie: macOS (`~/Desktop/NOTEPAD`), Windows (`Desktop\\NOTEPAD`, z uwzględnieniem OneDrive).
+  - Asercja: test pomija się automatycznie poza macOS/Windows.
 
 ## Workflow
 
@@ -51,6 +52,8 @@ scripts/run_mac.sh
 ```bat
 scripts\\run_win.bat
 ```
+
+Skrypt przyjmuje opcjonalnie argumenty: `scripts\\run_win.bat <user> <pass>` lub env: `SELLASIST_USER`/`SELLASIST_PASS`.
 
 ## Wybór przeglądarki i środowiska
 
