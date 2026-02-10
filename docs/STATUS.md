@@ -9,6 +9,9 @@
 - Workflow: krok `open_sellasist` (otwarcie strony logowania + wypełnienie formularza bez submitu).
 - Desktop stub (macOS): otwarcie folderu `~/Desktop/NOTEPAD` po logowaniu.
 - Desktop stub (Windows): otwarcie folderu `Desktop\\NOTEPAD` (tworzy folder, jeśli nie istnieje).
+- Desktop automation skeleton dla AutoStacja:
+  - tryb `DESKTOP_MODE=sim` (działa bez AutoStacji, zapisuje trace),
+  - tryb `DESKTOP_MODE=real` (Windows + RPA.Windows) — placeholdery, do podpięcia selectorów.
 - Tryb wielo-środowiskowy (macOS/Windows) z automatycznym doborem przeglądarki.
 - Bundle Windows v1.0 (Chrome) do demonstracji „otwórz login SellAsist”.
 - Bundle Windows v1.1 (Chrome) do demonstracji: otwórz login SellAsist + wpisz login/hasło + otwórz `Desktop\\NOTEPAD`.

@@ -19,6 +19,10 @@
   - Zachowanie: macOS (`~/Desktop/NOTEPAD`), Windows (`Desktop\\NOTEPAD`, z uwzględnieniem OneDrive).
   - Asercja: test pomija się automatycznie poza macOS/Windows.
 
+- `tests/autostacja_sim.robot`
+  - Cel: symulacja kroków AutoStacji bez realnej aplikacji (tryb `DESKTOP_MODE=sim`).
+  - Artefakty: zapisuje trace do `${OUTPUT DIR}/autostacja_sim_trace.txt` i marker PDF.
+
 ## Workflow
 
 - `process/open_sellasist.robot`
