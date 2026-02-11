@@ -25,6 +25,15 @@ Projekt rozróżnia dwa sposoby uruchamiania:
 - `tests/` – testy jednostkowe/smoke dla pojedynczych kroków.
 - `process/` – scenariusze workflow (docelowy proces bota).
 
+Aktualny kierunek procesu:
+- SellAsist: API (warstwa przygotowana, bez endpointów biznesowych).
+- AutoStacja: desktop RPA/UIA na Windows.
+- Web SellAsist (Selenium): fallback i szybkie testy awaryjne.
+
+Model wykonania:
+- jeden proces robota (orkiestracja kroków),
+- dwie warstwy wykonawcze: API client (SellAsist) i desktop RPA (AutoStacja).
+
 Przykłady:
 
 Uruchomienie pojedynczego testu:

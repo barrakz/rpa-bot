@@ -29,3 +29,13 @@
 - Desktop stub działa też na Windows: otwieranie `Desktop\\NOTEPAD` przez `explorer.exe` (tworzy folder, jeśli nie istnieje).
 - Login SellAsist może brać dane z `SELLASIST_USER`/`SELLASIST_PASS` (env override).
 - Skrypty Windows (`scripts/run_win.bat` i bundle `run.bat`) zapisują logi do `artifacts\\logs\\<timestamp>` i przyjmują opcjonalnie `user/pass` jako argumenty.
+
+## 2026-02-11
+
+- Dodano szkielet warstwy SellAsist API: konfiguracja `account`, budowa bazowego URL API i nagłówków (`apiKey`) bez wykonywania requestów.
+- Dodano workflow `process/prepare_sellasist_api.robot` i test `tests/sellasist_api_skeleton.robot`.
+- Dodano standardowe metody API (request builders) dla zamówień: `src/keywords/sellasist_api_orders.robot`.
+- Dodano test `tests/sellasist_api_orders_skeleton.robot` oraz hybrydowy workflow `process/hybrid_api_autostacja_skeleton.robot`.
+- Zaktualizowano `.env.example` o `SELLASIST_API_ACCOUNT`, `SELLASIST_API_KEY`, `SELLASIST_API_BASE_URL`.
+- Zaktualizowano dokumentację: kierunek integracji to SellAsist API + AutoStacja desktop RPA; web SellAsist zostaje jako fallback.
+- Dodano `labs/` do `.gitignore` (materiały laboratoryjne lokalne, poza repo).

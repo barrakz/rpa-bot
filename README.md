@@ -1,6 +1,10 @@
 # RPA Bot – Robot Framework (skeleton)
 
-Minimalny, lokalny fundament projektu Robot Framework (Python) pod macOS. Docelowo bot będzie uruchamiany na Windows z GUI — na razie tylko podstawa bez automatyzacji UI.
+Minimalny, lokalny fundament projektu Robot Framework (Python). Kierunek docelowy:
+- Sellasist przez API,
+- AutoStacja jako aplikacja desktopowa Windows (RPA/UIA).
+
+Aktualna automatyzacja web Sellasist (Selenium) zostaje w projekcie jako fallback.
 
 ## Szybki start
 
@@ -23,6 +27,48 @@ robot --outputdir artifacts/logs tests
 ```bash
 scripts/run_mac.sh
 ```
+
+## Kierunek integracji (Sellasist API + AutoStacja desktop)
+
+- Sellasist: przygotowany szkielet integracji API (bez wywołań endpointów).
+- AutoStacja: zostaje tryb `sim`, a docelowy `real` (Windows + `RPA.Windows`) jest szkieletem do uzupełnienia selectorami.
+- Web Sellasist (Selenium) pozostaje awaryjnie i do szybkich testów.
+
+### Sellasist API (skeleton, bez requestów)
+
+Nowy krok przygotowujący kontekst API:
+
+```bash
+robot --outputdir artifacts/logs process/prepare_sellasist_api.robot
+```
+
+Warstwa API buduje:
+- `account` (subdomena konta),
+- bazowy URL API,
+- nagłówki (`accept`, `apiKey`),
+- URL endpointu (bez wykonywania zapytania).
+
+Standardowe metody API (request builders) dla procesu zamówień:
+- `src/keywords/sellasist_api_orders.robot`
+- statusy, źródła, kolejka zamówień, szczegóły zamówienia, update numeru dokumentu, update statusu, notatki.
+
+Przykładowy flow hybrydowy (API -> AutoStacja -> API), dalej bez requestów HTTP:
+
+```bash
+robot --outputdir artifacts/logs process/hybrid_api_autostacja_skeleton.robot
+```
+
+Zmienne środowiskowe:
+
+```env
+SELLASIST_API_ACCOUNT=ggautolublin
+SELLASIST_API_KEY=
+SELLASIST_API_BASE_URL=
+```
+
+Uwagi:
+- Standardowy URL wywołań wg specyfikacji to `https://{account}.sellasist.pl/api/v1`.
+- `https://api.sellasist.pl` jest adresem dokumentacji.
 
 ## Wybór środowiska i przeglądarki
 
@@ -71,6 +117,8 @@ W czasie prac na macOS przechowuj dane dostępowe lokalnie w:
 ```env
 SELLASIST_USER=twoj_login
 SELLASIST_PASS=twoje_haslo
+SELLASIST_API_ACCOUNT=ggautolublin
+SELLASIST_API_KEY=twoj_klucz_api
 ```
 
 Plik `.local/.env` jest ignorowany przez git.
