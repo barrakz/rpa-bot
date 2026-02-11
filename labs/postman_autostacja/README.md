@@ -29,6 +29,44 @@ Aktualny flow (uruchamia Postmana):
 POSTMAN_SIM_DRY_RUN=0 ./venv/bin/robot --outputdir artifacts/logs_postman_single labs/postman_autostacja/process/open_postman_and_filter_collection.robot
 ```
 
+## Alternatywa Playwright (Python + Electron CDP)
+
+Scenariusz robi te same kroki:
+1. otwarcie Postmana,
+2. wpisanie `LOCAL VECTOR` w `Search collections`,
+3. klik `PROD UPDATE SLUG` w lewym sidebarze.
+
+Instalacja:
+
+```bash
+cd /Users/brakuzy/Code/work/rpa-bot
+./venv/bin/pip install -r labs/postman_autostacja/playwright/requirements-python.txt
+```
+
+Uruchomienie:
+
+```bash
+cd /Users/brakuzy/Code/work/rpa-bot
+./venv/bin/python labs/postman_autostacja/playwright/postman_flow.py
+```
+
+Wynik:
+- JSON z czasami: `artifacts/logs_postman_playwright_py/playwright_flow_result.json`
+- Zrzut ekranu po kliknieciu: `artifacts/logs_postman_playwright_py/playwright_flow_last.png`
+
+Przydatne env:
+
+```bash
+POSTMAN_FILTER_TEXT="LOCAL VECTOR"
+POSTMAN_REQUEST_TITLE="PROD UPDATE SLUG"
+POSTMAN_SIDEBAR_MAX_X=520
+POSTMAN_STEP_TIMEOUT_MS=12000
+POSTMAN_LAUNCH_TIMEOUT_MS=30000
+POSTMAN_CDP_PORT=9222
+POSTMAN_APP_NAME="Postman"
+POSTMAN_CLOSE_CDP_SESSION=1
+```
+
 ## Wymagane uprawnienia macOS
 
 Klikanie elementow UI przez `System Events` wymaga uprawnienia Dostepnosci.

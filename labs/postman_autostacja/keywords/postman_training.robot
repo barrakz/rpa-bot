@@ -47,42 +47,60 @@ Open Postman From Dock
     Sleep    ${open_wait}s
 
 Type Postman Collections Search Filter
-    [Arguments]    ${filter_text}    ${search_label}    ${attempts}
+    [Arguments]    ${filter_text}    ${search_label}    ${attempts}    ${sidebar_max_x}
     ${script}=    Catenate    SEPARATOR=\n
     ...    on run argv
     ...        set filterText to item 1 of argv
     ...        set searchLabel to item 2 of argv
     ...        set maxAttempts to (item 3 of argv) as integer
+    ...        set sidebarMaxX to (item 4 of argv) as integer
     ...        tell application "System Events"
     ...            tell process "Postman"
     ...                set frontmost to true
-    ...                delay 0.35
+    ...                delay 0.15
     ...                repeat with i from 1 to maxAttempts
-    ...                    set focusedSearch to false
     ...                    try
     ...                        set elemsSearch to entire contents of window 1
     ...                        repeat with s in elemsSearch
     ...                            try
+    ...                                set sSubrole to ""
+    ...                                set sRole to ""
     ...                                set sName to ""
     ...                                set sLabel to ""
-    ...                                set sSubrole to ""
-    ...                                try
-    ...                                    set sName to name of s
-    ...                                end try
-    ...                                try
-    ...                                    set sLabel to description of s
-    ...                                end try
+    ...                                set xPos to 99999
     ...                                try
     ...                                    set sSubrole to subrole of s
     ...                                end try
-    ...                                set hasSearchText to false
-    ...                                if sName is not missing value and sName is not "" and (sName contains searchLabel or sName contains "search" or sName contains "Search") then
-    ...                                    set hasSearchText to true
+    ...                                try
+    ...                                    set sRole to role of s
+    ...                                end try
+    ...                                if sSubrole is "AXSearchField" then
+    ...                                    try
+    ...                                        set p to position of s
+    ...                                        set xPos to item 1 of p
+    ...                                    end try
     ...                                end if
-    ...                                if sLabel is not missing value and sLabel is not "" and (sLabel contains searchLabel or sLabel contains "search" or sLabel contains "Search") then
-    ...                                    set hasSearchText to true
+    ...                                set isSearchCandidate to false
+    ...                                if sSubrole is "AXSearchField" then
+    ...                                    set isSearchCandidate to true
+    ...                                else if sRole is "AXTextField" then
+    ...                                    try
+    ...                                        set sName to name of s
+    ...                                    end try
+    ...                                    try
+    ...                                        set sLabel to description of s
+    ...                                    end try
+    ...                                    if (sName is not missing value and sName is not "" and (sName contains searchLabel or sName contains "search" or sName contains "Search")) or (sLabel is not missing value and sLabel is not "" and (sLabel contains searchLabel or sLabel contains "search" or sLabel contains "Search")) then
+    ...                                        set isSearchCandidate to true
+    ...                                    end if
     ...                                end if
-    ...                                if sSubrole is "AXSearchField" and hasSearchText then
+    ...                                if isSearchCandidate then
+    ...                                    try
+    ...                                        set p to position of s
+    ...                                        set xPos to item 1 of p
+    ...                                    end try
+    ...                                end if
+    ...                                if isSearchCandidate and xPos < sidebarMaxX then
     ...                                    try
     ...                                        click s
     ...                                    on error
@@ -92,95 +110,114 @@ Type Postman Collections Search Filter
     ...                                    keystroke "a" using command down
     ...                                    key code 51
     ...                                    keystroke filterText
-    ...                                    delay 0.25
     ...                                    return "typed_search_filter:" & filterText
     ...                                end if
     ...                            end try
     ...                        end repeat
     ...                    end try
-    ...                    delay 0.2
+    ...                    delay 0.1
     ...                end repeat
     ...            end tell
     ...        end tell
     ...        error "collection search input failed: " & filterText
     ...    end run
-    Postman Trace    type_collection_search_filter value=${filter_text} label=${search_label} attempts=${attempts}
-    ${res}=    Run Process    osascript    -e    ${script}    ${filter_text}    ${search_label}    ${attempts}
+    Postman Trace    type_collection_search_filter value=${filter_text} label=${search_label} attempts=${attempts} sidebar_max_x=${sidebar_max_x}
+    ${res}=    Run Process    osascript    -e    ${script}    ${filter_text}    ${search_label}    ${attempts}    ${sidebar_max_x}
     Postman Trace    type_collection_search_filter_rc rc=${res.rc}
     Postman Trace    type_collection_search_filter_stdout ${res.stdout}
     Postman Trace    type_collection_search_filter_stderr ${res.stderr}
     Should Be Equal As Integers    ${res.rc}    0
 
 Prepare Click Postman Request In Sidebar
-    [Arguments]    ${request_title}    ${attempts}    ${text_role}    ${link_role}
+    [Arguments]    ${request_title}    ${attempts}    ${text_role}    ${link_role}    ${sidebar_max_x}
     ${script}=    Catenate    SEPARATOR=\n
     ...    on run argv
     ...        set requestTitle to item 1 of argv
     ...        set maxAttempts to (item 2 of argv) as integer
     ...        set requestTextRole to item 3 of argv
     ...        set requestLinkRole to item 4 of argv
+    ...        set sidebarMaxX to (item 5 of argv) as integer
     ...        tell application "System Events"
     ...            tell process "Postman"
     ...                set frontmost to true
-    ...                delay 0.25
+    ...                delay 0.05
     ...                repeat with i from 1 to maxAttempts
     ...                    try
     ...                        set elems to entire contents of window 1
+    ...                        -- Pass 1: request link in left sidebar.
     ...                        repeat with e in elems
     ...                            try
     ...                                set eName to ""
-    ...                                set eValue to ""
-    ...                                set eDesc to ""
     ...                                set eRole to ""
-    ...                                set eSubrole to ""
-    ...                                try
-    ...                                    set eName to name of e
-    ...                                end try
-    ...                                try
-    ...                                    set eValue to value of e
-    ...                                end try
-    ...                                try
-    ...                                    set eDesc to description of e
-    ...                                end try
+    ...                                set xPos to 99999
     ...                                try
     ...                                    set eRole to role of e
     ...                                end try
+    ...                                if eRole is requestLinkRole then
+    ...                                    try
+    ...                                        set p to position of e
+    ...                                        set xPos to item 1 of p
+    ...                                    end try
+    ...                                    if xPos < sidebarMaxX then
+    ...                                        try
+    ...                                            set eName to name of e
+    ...                                        end try
+    ...                                        if eName is not missing value and eName is not "" and eName contains requestTitle then
+    ...                                            try
+    ...                                                click e
+    ...                                            on error
+    ...                                                perform action "AXPress" of e
+    ...                                            end try
+    ...                                            return "clicked_request_link_name:" & requestTitle
+    ...                                        end if
+    ...                                        set eValue to ""
+    ...                                        try
+    ...                                            set eValue to value of e
+    ...                                        end try
+    ...                                        if eValue is not missing value and eValue is not "" and eValue contains requestTitle then
+    ...                                            try
+    ...                                                click e
+    ...                                            on error
+    ...                                                perform action "AXPress" of e
+    ...                                            end try
+    ...                                            return "clicked_request_link_value:" & requestTitle
+    ...                                        end if
+    ...                                        set eDesc to ""
+    ...                                        try
+    ...                                            set eDesc to description of e
+    ...                                        end try
+    ...                                        if eDesc is not missing value and eDesc is not "" and eDesc contains requestTitle then
+    ...                                            try
+    ...                                                click e
+    ...                                            on error
+    ...                                                perform action "AXPress" of e
+    ...                                            end try
+    ...                                            return "clicked_request_link_desc:" & requestTitle
+    ...                                        end if
+    ...                                    end if
+    ...                                end if
+    ...                            end try
+    ...                        end repeat
+    ...
+    ...                        -- Pass 2: fallback via static text and parent click.
+    ...                        repeat with e in elems
+    ...                            try
+    ...                                set eRole to ""
     ...                                try
-    ...                                    set eSubrole to subrole of e
+    ...                                    set eRole to role of e
     ...                                end try
-    ...                                set isSearchField to false
-    ...                                if eSubrole is "AXSearchField" then
-    ...                                    set isSearchField to true
-    ...                                end if
-    ...                                if eRole is "AXTextField" and ((eName contains "search") or (eName contains "Search")) then
-    ...                                    set isSearchField to true
-    ...                                end if
-    ...                                if not isSearchField then
-    ...                                    if eRole is requestLinkRole and eName is not missing value and eName is not "" and eName contains requestTitle then
+    ...                                if eRole is requestTextRole then
+    ...                                    set xPos to 99999
+    ...                                    try
+    ...                                        set p2 to position of e
+    ...                                        set xPos to item 1 of p2
+    ...                                    end try
+    ...                                    if xPos < sidebarMaxX then
+    ...                                        set eValue to ""
     ...                                        try
-    ...                                            click e
-    ...                                        on error
-    ...                                            perform action "AXPress" of e
+    ...                                            set eValue to value of e
     ...                                        end try
-    ...                                        return "clicked_request_link_name:" & requestTitle
-    ...                                    end if
-    ...                                    if eRole is requestLinkRole and eValue is not missing value and eValue is not "" and eValue contains requestTitle then
-    ...                                        try
-    ...                                            click e
-    ...                                        on error
-    ...                                            perform action "AXPress" of e
-    ...                                        end try
-    ...                                        return "clicked_request_link_value:" & requestTitle
-    ...                                    end if
-    ...                                    if eRole is requestLinkRole and eDesc is not missing value and eDesc is not "" and eDesc contains requestTitle then
-    ...                                        try
-    ...                                            click e
-    ...                                        on error
-    ...                                            perform action "AXPress" of e
-    ...                                        end try
-    ...                                        return "clicked_request_link_desc:" & requestTitle
-    ...                                    end if
-    ...                                    if eRole is requestTextRole and eValue is not missing value and eValue is not "" and eValue is requestTitle then
+    ...                                        if eValue is not missing value and eValue is not "" and eValue is requestTitle then
     ...                                        try
     ...                                            set p to parent of e
     ...                                            try
@@ -197,19 +234,20 @@ Prepare Click Postman Request In Sidebar
     ...                                            end try
     ...                                            return "clicked_request_text_direct:" & requestTitle
     ...                                        end try
+    ...                                        end if
     ...                                    end if
     ...                                end if
     ...                            end try
     ...                        end repeat
     ...                    end try
-    ...                    delay 0.2
+    ...                    delay 0.05
     ...                end repeat
     ...            end tell
     ...        end tell
     ...        error "request click prep failed: " & requestTitle
     ...    end run
-    Postman Trace    prepare_click_postman_request target=${request_title} attempts=${attempts}
-    ${res}=    Run Process    osascript    -e    ${script}    ${request_title}    ${attempts}    ${text_role}    ${link_role}
+    Postman Trace    prepare_click_postman_request target=${request_title} attempts=${attempts} sidebar_max_x=${sidebar_max_x}
+    ${res}=    Run Process    osascript    -e    ${script}    ${request_title}    ${attempts}    ${text_role}    ${link_role}    ${sidebar_max_x}
     Postman Trace    prepare_click_postman_request_rc rc=${res.rc}
     Postman Trace    prepare_click_postman_request_stdout ${res.stdout}
     Postman Trace    prepare_click_postman_request_stderr ${res.stderr}
@@ -223,14 +261,15 @@ Postman Filter Collection
     ${filter}=    Set Variable    ${POSTMAN_COLLECTION_FILTER_TEXT}
     ${search_label}=    Set Variable    ${POSTMAN_COLLECTION_SEARCH_LABEL}
     ${attempts}=    Set Variable    ${POSTMAN_COLLECTION_SEARCH_ATTEMPTS}
+    ${sidebar_max_x}=    Set Variable    ${POSTMAN_SIDEBAR_MAX_X}
     ${dry}=    Get Environment Variable    POSTMAN_SIM_DRY_RUN    default=0
     ${dry}=    Convert To Lowercase    ${dry}
-    Postman Trace    postman_filter_collection value=${filter} label=${search_label} attempts=${attempts}
+    Postman Trace    postman_filter_collection value=${filter} label=${search_label} attempts=${attempts} sidebar_max_x=${sidebar_max_x}
     IF    '${dry}'=='1' or '${dry}'=='true'
         Postman Trace    dry_run_skip_filter_collection
         RETURN
     END
-    Type Postman Collections Search Filter    ${filter}    ${search_label}    ${attempts}
+    Type Postman Collections Search Filter    ${filter}    ${search_label}    ${attempts}    ${sidebar_max_x}
 
 Postman Prepare Click Prod Update Slug
     [Documentation]    Prepared for next phase; enable in process after inspector-based tuning.
@@ -238,11 +277,12 @@ Postman Prepare Click Prod Update Slug
     ${attempts}=    Set Variable    ${POSTMAN_REQUEST_CLICK_ATTEMPTS}
     ${text_role}=    Set Variable    ${POSTMAN_REQUEST_TEXT_ROLE}
     ${link_role}=    Set Variable    ${POSTMAN_REQUEST_LINK_ROLE}
+    ${sidebar_max_x}=    Set Variable    ${POSTMAN_SIDEBAR_MAX_X}
     ${dry}=    Get Environment Variable    POSTMAN_SIM_DRY_RUN    default=0
     ${dry}=    Convert To Lowercase    ${dry}
-    Postman Trace    postman_prepare_click_prod_update_slug target=${target} attempts=${attempts} text_role=${text_role} link_role=${link_role}
+    Postman Trace    postman_prepare_click_prod_update_slug target=${target} attempts=${attempts} text_role=${text_role} link_role=${link_role} sidebar_max_x=${sidebar_max_x}
     IF    '${dry}'=='1' or '${dry}'=='true'
         Postman Trace    dry_run_skip_click_prod_update_slug
         RETURN
     END
-    Prepare Click Postman Request In Sidebar    ${target}    ${attempts}    ${text_role}    ${link_role}
+    Prepare Click Postman Request In Sidebar    ${target}    ${attempts}    ${text_role}    ${link_role}    ${sidebar_max_x}
