@@ -8,6 +8,10 @@ ${SELLASIST_PASSWORD_INPUT}  css:input[type="password"]
 ${SELLASIST_LOGIN_BUTTON}  css:button[type="submit"],input[type="submit"]
 ${SELLASIST_TEST_USER}    test@test.pl
 ${SELLASIST_TEST_PASS}    testtest
+${SELLASIST_API_DOCS_URL}     https://api.sellasist.pl
+${SELLASIST_API_URL_TEMPLATE}  https://{account}.sellasist.pl/api/v1
+${SELLASIST_API_ACCOUNT}      ggautolublin
+${SELLASIST_API_KEY}         
 
 ${DEFAULT_BROWSER_MAC}   safari
 ${DEFAULT_BROWSER_WIN}   chrome

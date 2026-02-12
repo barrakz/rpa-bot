@@ -14,6 +14,14 @@
   - Cel: otwarcie strony logowania SellAsist i wpisanie danych testowych bez wysyłania formularza.
   - Asercja: obecność pól login/hasło, poprawny URL oraz wypełnienie pól.
 
+- `tests/sellasist_api_skeleton.robot`
+  - Cel: walidacja warstwy API Sellasist bez połączeń HTTP.
+  - Asercja: poprawna budowa URL API i nagłówków (`accept`, opcjonalnie `apiKey`).
+
+- `tests/sellasist_api_orders_skeleton.robot`
+  - Cel: walidacja standardowych metod API (request builders) dla procesu zamówień.
+  - Asercja: budowa requestów dla kolejki zamówień, update statusu i numeru dokumentu.
+
 - `tests/desktop_stub.robot`
   - Cel: desktop stub — otwarcie folderu `NOTEPAD` na pulpicie.
   - Zachowanie: macOS (`~/Desktop/NOTEPAD`), Windows (`Desktop\\NOTEPAD`, z uwzględnieniem OneDrive).
@@ -28,6 +36,12 @@
 - `process/open_sellasist.robot`
   - Cel: krok workflow otwierający stronę logowania SellAsist i wypełniający formularz logowania bez submitu.
   - Używany jako pierwszy krok procesu, testowany jednostkowo przez `tests/sellasist_login_page.robot`.
+
+- `process/prepare_sellasist_api.robot`
+  - Cel: przygotowanie kontekstu API (account/base URL/headers) i template requestu bez wykonywania zapytania HTTP.
+
+- `process/hybrid_api_autostacja_skeleton.robot`
+  - Cel: pokazanie docelowej orkiestracji API -> AutoStacja -> API w jednym flow, bez requestów HTTP.
 
 ## Uruchamianie
 
@@ -68,6 +82,16 @@ Sterowanie odbywa się przez zmienne środowiskowe:
 Przykład (macOS):
 ```bash
 RPA_ENV=mac BROWSER=safari robot --outputdir artifacts/logs process/open_sellasist.robot
+```
+
+Przykład API skeleton (bez requestów):
+```bash
+SELLASIST_API_ACCOUNT=ggautolublin robot --outputdir artifacts/logs process/prepare_sellasist_api.robot
+```
+
+Przykład flow hybrydowego (bez requestów):
+```bash
+SELLASIST_API_ACCOUNT=ggautolublin robot --outputdir artifacts/logs process/hybrid_api_autostacja_skeleton.robot
 ```
 
 Przykład (Windows):

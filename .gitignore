@@ -9,6 +9,7 @@ artifacts/*
 *.html
 
 .local/
+labs/
 
 .env
 

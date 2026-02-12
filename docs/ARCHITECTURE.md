@@ -5,11 +5,22 @@
 Projekt oparty o Robot Framework z wydzielonymi keywordami i konfiguracją. Testy są uruchamiane lokalnie na macOS.
 Docelowe środowisko wykonawcze to Windows z Chrome, przy zachowaniu wspólnej bazy kodu.
 
+Aktualny kierunek integracyjny:
+- Sellasist przez API (warstwa `sellasist_api`),
+- AutoStacja przez desktop RPA/UIA na Windows (`autostacja_windows`),
+- web Selenium dla Sellasist pozostaje jako fallback.
+
 ## Struktura kodu
 
 - `tests/` – scenariusze testowe `.robot`.
 - `process/` – kroki workflow (scenariusze procesu, składane w całość).
+  - `prepare_sellasist_api.robot` – bootstrap warstwy API.
+  - `hybrid_api_autostacja_skeleton.robot` – referencyjny przepływ API -> desktop -> API.
 - `src/keywords/` – własne keywordy reużywalne w testach.
+  - `sellasist.robot` – web fallback (Selenium).
+  - `sellasist_api.robot` – szkielet warstwy API (bez wywołań HTTP).
+  - `sellasist_api_orders.robot` – standardowe metody API (request builders) dla zamówień.
+  - `autostacja.robot` / `autostacja_sim.robot` / `autostacja_windows.robot` – warstwa desktop AutoStacji.
 - `config/` – zmienne i konfiguracja środowiska.
 - `artifacts/` – logi i pliki generowane podczas uruchomień.
 - `bundle/` – paczki uruchomieniowe (Windows) dla użytkowników nietechnicznych.

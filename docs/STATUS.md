@@ -6,7 +6,11 @@
 - Test smoke zapisujący marker `smoke_ok.txt` do `artifacts/logs/`.
 - Test web (Safari): otwarcie przeglądarki i nawigacja do `https://www.wp.pl`.
 - Test web (Safari/Chrome): otwarcie strony logowania SellAsist i wypełnienie formularza danymi (bez submitu).
+- Sellasist API skeleton (bez requestów): rozwiązywanie `account`, budowa URL API i nagłówków (`apiKey`), przygotowanie template requestu.
+- Sellasist API standard methods (bez requestów) dla zamówień: kolejka, szczegóły, update numeru dokumentu, update statusu, notatki.
 - Workflow: krok `open_sellasist` (otwarcie strony logowania + wypełnienie formularza bez submitu).
+- Workflow: krok `prepare_sellasist_api` (przygotowanie kontekstu API bez wywołań HTTP).
+- Workflow: `hybrid_api_autostacja_skeleton` (orkiestracja API -> AutoStacja -> API w trybie skeleton).
 - Desktop stub (macOS): otwarcie folderu `~/Desktop/NOTEPAD` po logowaniu.
 - Desktop stub (Windows): otwarcie folderu `Desktop\\NOTEPAD` (tworzy folder, jeśli nie istnieje).
 - Desktop automation skeleton dla AutoStacja:
@@ -25,12 +29,13 @@
 
 ## Znane ograniczenia
 
-- Brak automatyzacji UI Windows (planowane docelowo na inny etap).
+- Brak implementacji realnej automatyzacji UI AutoStacja na Windows (keywordy `real` są placeholderami).
 - Selenium nie wpisuje adresu w pasek URL przeglądarki — używamy `Go To`.
 - Brak realnych dostępów testowych (SellAsist/AutoStacja) i brak docelowej maszyny: testujemy tylko fundamenty (web + stub desktop).
+- Brak wybranych endpointów biznesowych Sellasist API (warstwa API jest przygotowana, ale bez wywołań).
 
 ## Następne kroki (propozycje)
 
-- Ustalić standard asercji dla stron (mniej kruche niż pełny tytuł).
-- Dodać bazowy model logowania/test tags.
-- Dodać lokalną bazę procesową (np. SQLite) na komputerze docelowym do zapisu przebiegu, błędów i kroków.
+- Uzgodnić mapę procesu biznesowego na endpointy Sellasist API (krok -> endpoint -> payload).
+- Wdrożyć endpointy Sellasist API dla pobierania/aktualizacji zamówień.
+- Uzupełnić `autostacja_windows.robot` o realne selektory UIA i obsługę wyjątków.
