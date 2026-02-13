@@ -1,0 +1,26 @@
+{
+  "id": "94865",
+  "status": {
+    "id": "38",
+    "name": "NO-LU_AutohausOtto"
+  },
+  "payment": {
+    "paid": "53.99",
+    "status": "paid"
+  },
+  "invoice": "1",
+  "bill_address": {
+    "company_nip": "5321166474"
+  },
+  "external_data": {
+    "external_login": "cartman2"
+  },
+  "carts": [
+    {
+      "catalog_number": "GS55545M2EUR",
+      "signature": "GS55545M2EUR",
+      "quantity": "1.000",
+      "price": "53.99"
+    }
+  ]
+}

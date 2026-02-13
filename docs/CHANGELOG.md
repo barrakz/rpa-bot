@@ -3,10 +3,6 @@
 ## 2026-02-04
 
 - Utworzono szkielet projektu Robot Framework (struktura katalogów, smoke test, keywordy, skrypty).
-- Dodano test Selenium w Safari: `tests/open_wp.robot`.
-- Dodano dokumentację uruchamiania Safari i strukturę `docs/`.
-- Dodano test strony logowania SellAsist bez wpisywania danych.
-- Dodano pierwszy krok workflow: `process/open_sellasist.robot`.
 
 ## 2026-02-05
 
@@ -16,19 +12,13 @@
 
 ## 2026-02-06
 
-- Dodano keywordy SellAsist i wpisywanie litery `a` w pole loginu.
-- Zaktualizowano test oraz krok workflow o wpisywanie litery w login.
-- Zaktualizowano dokumentację funkcjonalności i testów.
-- Dodano testowe logowanie do SellAsist (login/hasło + kliknięcie „Zaloguj się”).
 - Dodano desktopowy stub otwierający `~/Desktop/NOTEPAD` po logowaniu (macOS).
 - Dodano test `tests/desktop_stub.robot` dla stubu desktopowego.
-- Zmieniono logowanie SellAsist: po wpisaniu danych nie klikamy „Zaloguj się”.
 
 ## 2026-02-09
 
 - Desktop stub działa też na Windows: otwieranie `Desktop\\NOTEPAD` przez `explorer.exe` (tworzy folder, jeśli nie istnieje).
-- Login SellAsist może brać dane z `SELLASIST_USER`/`SELLASIST_PASS` (env override).
-- Skrypty Windows (`scripts/run_win.bat` i bundle `run.bat`) zapisują logi do `artifacts\\logs\\<timestamp>` i przyjmują opcjonalnie `user/pass` jako argumenty.
+- Skrypty Windows zapisują logi do `artifacts\\logs\\<timestamp>`.
 
 ## 2026-02-11
 
@@ -39,3 +29,14 @@
 - Zaktualizowano `.env.example` o `SELLASIST_API_ACCOUNT`, `SELLASIST_API_KEY`, `SELLASIST_API_BASE_URL`.
 - Zaktualizowano dokumentację: kierunek integracji to SellAsist API + AutoStacja desktop RPA; web SellAsist zostaje jako fallback.
 - Dodano `labs/` do `.gitignore` (materiały laboratoryjne lokalne, poza repo).
+
+## 2026-02-12
+
+- Dodano główny proces `process/main_api_autostacja.robot`: pobranie statusów i kolejki NO-LU_AutohausOtto, pobranie szczegółów zamówienia, zapis handoff dla AutoStacji.
+- Dodano wykonanie GET dla SellAsist API w `src/keywords/sellasist_api.robot` (w tym tryb mock przez `SELLASIST_API_MOCK_DIR`).
+- Dodano testy offline pod główny etap API: `tests/sellasist_api_main_flow.robot` i `tests/main_api_autostacja_process_keywords.robot` oraz fixture JSON.
+- Proces główny zatrzymuje się kontrolowanie przed desktopowymi krokami AutoStacji, jeśli `AUTOSTACJA_EXE` nie jest ustawione.
+- Dopracowano normalizację payloadów API (`list`/`dict`) dla statusów, kolejki i szczegółów zamówienia, aby flow był odporny na warianty odpowiedzi.
+- Ujednolicono dokumentację pod aktualny stan: GET-y działają w głównym flow, a mutacje POST/PUT pozostają na etapie request-builderów.
+- Usunięto przeglądarkowy fallback SellAsist (procesy, keywordy i testy Selenium) oraz powiązaną dokumentację.
+- Skrypty uruchomieniowe (`run_mac.sh`, `run_win.bat`, bundle `run.bat`) przełączono na `process/main_api_autostacja.robot`.

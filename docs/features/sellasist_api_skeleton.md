@@ -1,22 +1,27 @@
-# SellAsist API skeleton (bez wywołań HTTP)
+# Sellasist API (init + GET + request-buildery)
 
 ## Opis
-Warstwa przygotowująca integrację API SellAsist bez wykonywania requestów. Celem jest ustandaryzowanie konfiguracji i budowy URL, aby kolejne endpointy można było dopinać bez zmian architektonicznych.
 
-## Wejścia / konfiguracja
-- `SELLASIST_API_ACCOUNT` (env) – subdomena konta, np. `ggautolublin`
-- `SELLASIST_API_KEY` (env) – klucz API (nagłówek `apiKey`)
-- `SELLASIST_API_BASE_URL` (env, opcjonalnie) – override bazowego URL (np. test routing)
-- fallbacki z `config/variables.robot`
+Warstwa API przygotowujaca i obslugujaca glowny etap pobierania zamowien.
+
+## Wejscia / konfiguracja
+
+- `SELLASIST_API_ACCOUNT`
+- `SELLASIST_API_KEY`
+- `SELLASIST_API_BASE_URL` (opcjonalnie)
+- `SELLASIST_API_MOCK_DIR` (opcjonalnie, testy offline)
 
 ## Zachowanie
-- Rozwiązuje konto API z env/fallback.
-- Buduje bazowy URL API (`https://{account}.sellasist.pl/api/v1`) lub używa override.
-- Buduje nagłówki requestu (`accept: application/json`, opcjonalnie `apiKey`).
-- Buduje pełny URL endpointu (np. `/attributes`).
-- Zwraca template requestu (metoda, URL, nagłówki), ale nie wysyła zapytania.
-- Udostępnia bazę pod standardowe metody API zamówień (`src/keywords/sellasist_api_orders.robot`).
+
+- Rozwiazuje konto i bazowy URL (`https://{account}.sellasist.pl/api/v1`).
+- Buduje naglowki (`accept`, opcjonalnie `apiKey`).
+- Wykonuje `GET`:
+  - `/statuses`
+  - `/orders`
+  - `/orders/{id}`
+- Obsluguje mock payloady z plikow JSON.
+- Udostepnia request-buildery dla krokow mutujacych (POST/PUT) do implementacji kolejnych etapow.
 
 ## Artefakty
+
 - Logi Robot Framework w `artifacts/logs/`.
-- Brak połączeń sieciowych wykonywanych przez tę warstwę.

@@ -1,131 +1,47 @@
 # Testy
 
-## Lista testów
+## Lista testow
 
 - `tests/smoke.robot`
-  - Cel: szybka weryfikacja, że projekt działa i zapisuje artefakt.
-  - Wynik: zapisuje `artifacts/logs/smoke_ok.txt`.
-
-- `tests/open_wp.robot`
-  - Cel: uruchomienie Safari i nawigacja do `https://www.wp.pl`.
-  - Asercja: tytuł strony.
-
-- `tests/sellasist_login_page.robot`
-  - Cel: otwarcie strony logowania SellAsist i wpisanie danych testowych bez wysyłania formularza.
-  - Asercja: obecność pól login/hasło, poprawny URL oraz wypełnienie pól.
+  - zapisuje marker `artifacts/logs/smoke_ok.txt`.
 
 - `tests/sellasist_api_skeleton.robot`
-  - Cel: walidacja warstwy API Sellasist bez połączeń HTTP.
-  - Asercja: poprawna budowa URL API i nagłówków (`accept`, opcjonalnie `apiKey`).
+  - waliduje inicjalizacje API i budowe requestu.
 
 - `tests/sellasist_api_orders_skeleton.robot`
-  - Cel: walidacja standardowych metod API (request builders) dla procesu zamówień.
-  - Asercja: budowa requestów dla kolejki zamówień, update statusu i numeru dokumentu.
+  - waliduje request-buildery dla operacji na zamowieniach.
 
-- `tests/desktop_stub.robot`
-  - Cel: desktop stub — otwarcie folderu `NOTEPAD` na pulpicie.
-  - Zachowanie: macOS (`~/Desktop/NOTEPAD`), Windows (`Desktop\\NOTEPAD`, z uwzględnieniem OneDrive).
-  - Asercja: test pomija się automatycznie poza macOS/Windows.
+- `tests/sellasist_api_main_flow.robot`
+  - waliduje glowny etap API na fixture mock.
+
+- `tests/main_api_autostacja_process_keywords.robot`
+  - waliduje flow keywordow i warunek stop przed AutoStacja przy braku `AUTOSTACJA_EXE`.
 
 - `tests/autostacja_sim.robot`
-  - Cel: symulacja kroków AutoStacji bez realnej aplikacji (tryb `DESKTOP_MODE=sim`).
-  - Artefakty: zapisuje trace do `${OUTPUT DIR}/autostacja_sim_trace.txt` i marker PDF.
+  - testuje zachowanie warstwy AutoStacji w trybie `sim`.
 
-## Workflow
+- `tests/autostacja_real_smoke.robot`
+  - smoke pod tryb `real` (wymaga Windows + AutoStacja).
 
-- `process/open_sellasist.robot`
-  - Cel: krok workflow otwierający stronę logowania SellAsist i wypełniający formularz logowania bez submitu.
-  - Używany jako pierwszy krok procesu, testowany jednostkowo przez `tests/sellasist_login_page.robot`.
+- `tests/desktop_stub.robot`
+  - prosty test desktop stub.
 
+## Procesy workflow
+
+- `process/main_api_autostacja.robot`
 - `process/prepare_sellasist_api.robot`
-  - Cel: przygotowanie kontekstu API (account/base URL/headers) i template requestu bez wykonywania zapytania HTTP.
-
 - `process/hybrid_api_autostacja_skeleton.robot`
-  - Cel: pokazanie docelowej orkiestracji API -> AutoStacja -> API w jednym flow, bez requestów HTTP.
 
 ## Uruchamianie
 
-- Wszystkie testy:
-
 ```bash
 robot --outputdir artifacts/logs tests
+robot --outputdir artifacts/logs process/main_api_autostacja.robot
 ```
 
-- Pojedynczy test:
+Przyklady lokalne:
 
 ```bash
-robot --outputdir artifacts/logs tests/open_wp.robot
+SELLASIST_API_ACCOUNT=ggautolublin robot --outputdir artifacts/logs tests/sellasist_api_main_flow.robot
+SELLASIST_API_ACCOUNT=ggautolublin robot --outputdir artifacts/logs process/main_api_autostacja.robot
 ```
-
-## Skrypty uruchomieniowe
-
-- Workflow demo na macOS:
-
-```bash
-scripts/run_mac.sh
-```
-
-- Lokalny run na Windows (developer):
-
-```bat
-scripts\\run_win.bat
-```
-
-Skrypt przyjmuje opcjonalnie argumenty: `scripts\\run_win.bat <user> <pass>` lub env: `SELLASIST_USER`/`SELLASIST_PASS`.
-
-## Wybór przeglądarki i środowiska
-
-Sterowanie odbywa się przez zmienne środowiskowe:
-- `RPA_ENV` = `mac` | `win`
-- `BROWSER` = `safari` | `chrome` | `firefox` | ...
-
-Przykład (macOS):
-```bash
-RPA_ENV=mac BROWSER=safari robot --outputdir artifacts/logs process/open_sellasist.robot
-```
-
-Przykład API skeleton (bez requestów):
-```bash
-SELLASIST_API_ACCOUNT=ggautolublin robot --outputdir artifacts/logs process/prepare_sellasist_api.robot
-```
-
-Przykład flow hybrydowego (bez requestów):
-```bash
-SELLASIST_API_ACCOUNT=ggautolublin robot --outputdir artifacts/logs process/hybrid_api_autostacja_skeleton.robot
-```
-
-Przykład (Windows):
-```bat
-set RPA_ENV=win
-set BROWSER=chrome
-robot --outputdir artifacts\\logs process\\open_sellasist.robot
-```
-
-## Wymagania Safari
-
-- Safari → Develop → Allow Remote Automation
-- Jednorazowo:
-
-```bash
-sudo safaridriver --enable
-```
-
-## Logi i raporty (Robot Framework)
-
-Po każdym uruchomieniu `robot` generowane są pliki w `artifacts/logs/`:
-
-- `log.html` – szczegółowy log krok po kroku (najlepszy do debugowania).
-- `report.html` – podsumowanie wyników testów (PASS/FAIL, statystyki).
-- `output.xml` – surowe dane przebiegu testów (do integracji/analizy).
-
-### Zalecany tryb: logi z timestampem
-
-Skrypt `scripts/run_tests.sh` zapisuje logi w podfolderze z timestampem, np.:
-`artifacts/logs/2026-02-04_14-30-05/`
-
-Dzięki temu logi nie są nadpisywane między uruchomieniami.
-
-### Jak czytać `log.html`
-1. Otwórz `artifacts/logs/log.html` w przeglądarce.
-2. Po lewej wybierz suite/test.
-3. Po prawej zobaczysz listę kroków (keywordów), czasy i ewentualne błędy.

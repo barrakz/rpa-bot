@@ -1,3 +1,6 @@
-# Rozszerzone opisy testów
+# Rozszerzone opisy testow
 
-W tym miejscu możesz dodawać bardziej szczegółowe opisy większych grup testów, np. `web_smoke.md`, `login_flow.md`.
+Tu mozna dodawac szczegolowe opisy grup testow, np.:
+- `sellasist_api_flow.md`
+- `autostacja_sim.md`
+- `autostacja_real.md`

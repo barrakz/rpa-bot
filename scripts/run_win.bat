@@ -4,13 +4,6 @@ setlocal enabledelayedexpansion
 set "ROOT=%~dp0.."
 set "ROOT=%ROOT%\"
 
-set "RPA_ENV=win"
-set "BROWSER=chrome"
-
-rem Optional args: run_win.bat <user> <pass>
-if not "%~1"=="" set "SELLASIST_USER=%~1"
-if not "%~2"=="" set "SELLASIST_PASS=%~2"
-
 set "PYTHON=%ROOT%venv\Scripts\python.exe"
 if not exist "%PYTHON%" (
   set "PYTHON=python"
@@ -25,6 +18,6 @@ if not exist "%OUTDIR%" mkdir "%OUTDIR%"
   --log log.html ^
   --report report.html ^
   --output output.xml ^
-  process\open_sellasist.robot
+  process\main_api_autostacja.robot
 
 endlocal

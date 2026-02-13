@@ -1,26 +1,21 @@
-# Funkcjonalności
+# Funkcjonalnosci
 
-Każda funkcjonalność powinna mieć osobny plik:
+Kazda funkcjonalnosc powinna miec osobny plik.
+Aktualnie:
 
-- `web_safari_open_wp.md` – przykład dla testu otwierania WP w Safari.
-- `sellasist_login_page.md` – fallbackowy krok web logowania do SellAsist (bez submitu).
-- `sellasist_api_skeleton.md` – szkielet warstwy API SellAsist (bez requestów).
-- `hybrid_api_autostacja_skeleton.md` – szkielet przepływu API SellAsist + desktop AutoStacja.
+- `sellasist_api_skeleton.md` - warstwa API Sellasist (init + GET + request-buildery).
+- `hybrid_api_autostacja_skeleton.md` - referencyjny przeplyw API + AutoStacja.
 
 Szablon pliku:
 
 ```
-# Nazwa funkcjonalności
+# Nazwa funkcjonalnosci
 
 ## Opis
-Krótki opis co to robi.
 
-## Wejścia / konfiguracja
-- Parametry / zmienne.
+## Wejscia / konfiguracja
 
 ## Zachowanie
-- Co robi krok po kroku.
 
 ## Artefakty
-- Jakie logi/pliki generuje.
 ```

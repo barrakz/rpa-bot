@@ -13,9 +13,6 @@ else
   exit 1
 fi
 
-: "${RPA_ENV:=mac}"
-export RPA_ENV
-
 ts="$(date +"%Y-%m-%d_%H-%M-%S")"
 outdir="artifacts/logs/${ts}"
 mkdir -p "${outdir}"
@@ -24,4 +21,4 @@ robot --outputdir "${outdir}" \
   --log log.html \
   --report report.html \
   --output output.xml \
-  process/open_sellasist.robot
+  process/main_api_autostacja.robot

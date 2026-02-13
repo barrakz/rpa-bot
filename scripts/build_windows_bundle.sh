@@ -66,13 +66,6 @@ set "ROOT=%~dp0"
 set "APP=%ROOT%app"
 set "PYTHON=%ROOT%python\python.exe"
 
-set "RPA_ENV=win"
-set "BROWSER=chrome"
-
-rem Optional args: run.bat <user> <pass>
-if not "%~1"=="" set "SELLASIST_USER=%~1"
-if not "%~2"=="" set "SELLASIST_PASS=%~2"
-
 if not exist "%PYTHON%" (
   echo [ERROR] Brak Python embed w paczce.
   pause
@@ -88,7 +81,7 @@ if not exist "%OUTDIR%" mkdir "%OUTDIR%"
   --log log.html ^
   --report report.html ^
   --output output.xml ^
-  process\open_sellasist.robot
+  process\main_api_autostacja.robot
 
 echo.
 echo [OK] Logi: %APP%\%OUTDIR%\log.html
@@ -99,10 +92,10 @@ EOF
 cat > "${bundle_root}/README.txt" <<EOF
 RPA Bot - Windows bundle v${VERSION}
 
-1) Upewnij sie, ze masz zainstalowana przegladarke Google Chrome.
+1) Uzupelnij dane API w app\\.env (na podstawie app\\.env.example).
 2) Uruchom run.bat (podwojny klik).
 
-Po uruchomieniu powinno otworzyc przegladarke i strone logowania SellAsist.
+Po uruchomieniu wykona sie etap API SellAsist i zapisze sie plik handoff dla AutoStacji.
 Logi: app\\artifacts\\logs\\log.html
 EOF
 
